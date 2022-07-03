@@ -9,7 +9,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.TeleportCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
@@ -51,7 +52,9 @@ abstract class TeleportCommandMixin {
         }
 
         if (targets.size() > 1) {
-            source.sendFeedback(new LiteralText("Too many targets! Unable to handle such complicated science.").formatted(Formatting.RED), true);
+            LiteralTextContent literalTextContent = new LiteralTextContent("Too many targets! Unable to handle such complicated science.");
+            MutableText text = MutableText.of(literalTextContent).formatted(Formatting.RED);
+            source.sendFeedback(text, true);
             callbackInfo.cancel();
             return;
         }
@@ -74,12 +77,14 @@ abstract class TeleportCommandMixin {
 
         if (xpRequired > playerXP) {
             String insufficientXPMessage = String.format("You have insufficient XP to teleport %s blocks (cost = %s XP [%s], you have %s XP)", distance, xpRequired, xpCost, playerXP);
-            source.sendFeedback(new LiteralText(insufficientXPMessage).formatted(Formatting.RED), false);
+            MutableText text = MutableText.of(new LiteralTextContent(insufficientXPMessage)).formatted(Formatting.RED);
+            source.sendFeedback(text, false);
             callbackInfo.cancel();
         } else {
             String teleportSuccessMessage = String.format("Teleporting %s blocks (cost = %s XP)", distance, xpRequired);
             source.getPlayer().addExperience(-xpRequired);
-            source.sendFeedback(new LiteralText(teleportSuccessMessage).formatted(Formatting.GRAY), true);
+            MutableText text = MutableText.of(new LiteralTextContent(teleportSuccessMessage)).formatted(Formatting.GRAY);
+            source.sendFeedback(text, true);
         }
     }
 
