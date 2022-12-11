@@ -9,3 +9,8 @@
 
 ### Notes
 1. `gradle runServer` sometimes removes client-side build artifacts, causing Java compilation to fail. It's stupid. Use `gradle build` to fix.
+
+
+### Future things
+
+- Use https://github.com/marketplace/actions/publish-minecraft-mods to publish artifacts
