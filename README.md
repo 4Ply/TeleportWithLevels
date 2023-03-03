@@ -1,3 +1,29 @@
+# Teleport with Levels
+
+This Minecraft mod (Fabric) allows players to teleport using XP.
+Teleportation cost is based on distance, and the cost scales exponentially over larger distances.
+
+This mod needs to be installed on both the server and the clients in order to function properly.
+
+Usage (in Minecraft) is simple. The command is `/xtp`, and follows the same rules as the normal 
+`/tp` command but instead of requiring Op permissions, it allows any player to teleport as long
+as they have sufficient XP.
+
+For example, `/xtp ~ ~100 ~` will teleport the player 100 blocks up, based on their current location.
+
+More examples:
+```
+# Teleport to X: 100, Y: 75, Z: 2000
+/xtp 100 75 2000
+
+# Teleport to a player named 4Ply
+/xtp 4Ply
+
+# Teleport 20 blocks down (try not to get squished)
+/xtp ~ ~-20 ~
+```
+
+
 # Development
 
 ### Upgrading
