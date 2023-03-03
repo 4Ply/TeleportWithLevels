@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/gradle.yml
 
   release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
