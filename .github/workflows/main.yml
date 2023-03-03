@@ -1,0 +1,24 @@
+name: Publish release
+
+on:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download jar
+        uses: actions/download-artifact@v3
+        with:
+          name: teleport-with-levels-jar
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            teleport_with_levels*.jar
+            LICENSE
